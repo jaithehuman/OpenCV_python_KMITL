@@ -32,10 +32,10 @@ marker_label[mark_obj==255]=0
 marker_show = (marker_label*20).astype('uint8')
 #watershed transform
 marker_label = cv2.watershed(img,marker_label)
-#show result
-for x in range(2,15):
-    img[marker_label==x]=[np.random.randint(0,256),np.random.randint(0,256),np.random.randint(0,256)]
-
+# #show result
+# for x in range(2,15):
+#     img[marker_label==x]=[np.random.randint(0,256),np.random.randint(0,256),np.random.randint(0,256)]
+img[marker_label==-1]=[0,0,255]
 cv2.imshow("Original",img)
 cv2.imshow("Gray",gray)
 cv2.imshow("Distance",distu)
