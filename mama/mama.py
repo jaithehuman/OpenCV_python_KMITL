@@ -8,13 +8,13 @@ while(1):
     _, image = cap.read()
 
     #resize video
-    frame = cv2.resize(image,None,fx=0.8,fy=0.8)
+    frame = cv2.resize(image,None,fx=0.7,fy=0.7)
     frame2 = frame.copy()
     # convert BGR to HSV
     hsv = cv2.cvtColor(frame,cv2.COLOR_BGR2HSV)
-    lower_blue = np.array([100,50,50])
-    upper_blue = np.array([105,255,255])
-    mask = cv2.inRange(hsv,lower_blue,upper_blue)
+    lower = np.array([35,50,50])
+    upper = np.array([100,255,255])
+    mask = cv2.inRange(hsv,lower,upper)
     #bitwise 
     res = cv2.bitwise_and(frame,frame ,mask=mask)
     #Threshold
@@ -31,7 +31,7 @@ while(1):
     contours,_ = cv2.findContours(opening,cv2.RETR_LIST,cv2.CHAIN_APPROX_NONE)
 
     #Canny
-    canny = cv2.Canny(res,threshold1=0,threshold2=50)
+    canny = cv2.Canny(opening,threshold1=0,threshold2=50)
 
     for i in range(len(contours)):
         cv2.drawContours(frame2,contours,i,(130,255,255),3)
